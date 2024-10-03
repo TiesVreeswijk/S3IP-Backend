@@ -12,3 +12,4 @@ C:\Users\Ties\RiderProjects\S3IP-Backend\DAL\obj\Debug\net8.0\refint\DAL.dll
 C:\Users\Ties\RiderProjects\S3IP-Backend\DAL\obj\Debug\net8.0\DAL.pdb
 C:\Users\Ties\RiderProjects\S3IP-Backend\DAL\obj\Debug\net8.0\DAL.genruntimeconfig.cache
 C:\Users\Ties\RiderProjects\S3IP-Backend\DAL\obj\Debug\net8.0\ref\DAL.dll
+C:\Users\Ties\RiderProjects\S3IP-Backend\DAL\obj\Debug\net8.0\DAL.sourcelink.json

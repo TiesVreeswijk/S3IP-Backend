@@ -114,3 +114,4 @@ C:\Users\Ties\RiderProjects\S3IP-Backend\API\obj\Debug\net8.0\refint\API.dll
 C:\Users\Ties\RiderProjects\S3IP-Backend\API\obj\Debug\net8.0\API.pdb
 C:\Users\Ties\RiderProjects\S3IP-Backend\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\Ties\RiderProjects\S3IP-Backend\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\Ties\RiderProjects\S3IP-Backend\API\obj\Debug\net8.0\API.sourcelink.json
