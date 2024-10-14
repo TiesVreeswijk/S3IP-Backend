@@ -60,6 +60,7 @@ var app = builder.Build();
 
 // Use CORS policy
 app.UseCors("AllowSpecificOrigin");
+app.UseStaticFiles();
 
 // Use Swagger middleware
 app.UseSwagger();
