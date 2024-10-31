@@ -115,3 +115,9 @@ C:\Users\Ties\RiderProjects\S3IP-Backend\API\obj\Debug\net8.0\API.pdb
 C:\Users\Ties\RiderProjects\S3IP-Backend\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\Ties\RiderProjects\S3IP-Backend\API\obj\Debug\net8.0\ref\API.dll
 C:\Users\Ties\RiderProjects\S3IP-Backend\API\obj\Debug\net8.0\API.sourcelink.json
+C:\Users\Ties\RiderProjects\S3IP-Backend\API\bin\Debug\net8.0\Business.dll
+C:\Users\Ties\RiderProjects\S3IP-Backend\API\bin\Debug\net8.0\Business.pdb
+C:\Users\Ties\RiderProjects\S3IP-Backend\API\bin\Debug\net8.0\BCrypt.Net-Core.dll
+C:\Users\Ties\RiderProjects\S3IP-Backend\API\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
+C:\Users\Ties\RiderProjects\S3IP-Backend\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Ties\RiderProjects\S3IP-Backend\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll

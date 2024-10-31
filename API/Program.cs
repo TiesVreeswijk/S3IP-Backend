@@ -1,10 +1,14 @@
+// File: API/Program.cs
 using System.Text;
+using Business;
+using Business.Interfaces;
+using Business.Repositories;
 using DAL;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +24,9 @@ builder.Services.AddCors(options =>
         });
 });
 
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Secret"]);
+
 // Add Authentication services
 builder.Services.AddAuthentication(options =>
     {
@@ -34,11 +41,17 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+            RoleClaimType = "typ"
         };
     });
+
+// Register services
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Add Swagger services
 builder.Services.AddSwaggerGen(c =>
@@ -47,16 +60,21 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Add DbContext
-string defaultconnection = "server=localhost;database=liftmate;user=root;password=;";
+string defaultconnection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseMySql(defaultconnection,
         ServerVersion.AutoDetect(defaultconnection),
         b => b.MigrationsAssembly("DAL")));
-        
 
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
+    dbContext.Database.EnsureCreated();
+}
 
 // Use CORS policy
 app.UseCors("AllowSpecificOrigin");

@@ -1,3 +1,4 @@
+using Business.Entities;
 using DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ public class ExercisesController : ControllerBase
 
     // GET: api/exercises
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ExerciseModel>>> GetExercises()
+    public async Task<ActionResult<IEnumerable<Exercise>>> GetExercises()
     {
         var exercises = await _context.Exercise.ToListAsync();
 

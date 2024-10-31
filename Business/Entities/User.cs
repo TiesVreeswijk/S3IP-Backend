@@ -1,9 +1,9 @@
-namespace DAL
+namespace Business.Entities;
+
+public class User
 {
-    public class UserModel
-    {
+
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-    }
 }

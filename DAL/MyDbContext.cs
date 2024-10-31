@@ -1,3 +1,4 @@
+using Business.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -11,16 +12,22 @@ public class MyDbContext : DbContext
     }
 
 
-    public DbSet<UserModel> User { get; set; }
-    public DbSet<ExerciseModel> Exercise { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Exercise> Exercise { get; set; }
+    public DbSet<Training> Training { get; set; }
+    public DbSet<TrainingExercise> TrainingExercise { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Define your model configurations
-        modelBuilder.Entity<UserModel>()
+        modelBuilder.Entity<User>()
             .HasIndex(a => a.Username).IsUnique();
-        modelBuilder.Entity<ExerciseModel>()
+        modelBuilder.Entity<Exercise>()
             .HasIndex(e => e.Name).IsUnique();
+        modelBuilder.Entity<Training>()
+            .HasMany(t => t.TrainingExercises)
+            .WithOne(te => te.Training)
+            .HasForeignKey(te => te.TrainingId);
 
         base.OnModelCreating(modelBuilder);
     }

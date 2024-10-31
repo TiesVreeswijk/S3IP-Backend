@@ -1,6 +1,6 @@
-namespace DAL;
+namespace Business.Entities;
 
-public class ExerciseModel
+public class Exercise
 {
     public int Id { get; set; }
     public string Name { get; set; }
