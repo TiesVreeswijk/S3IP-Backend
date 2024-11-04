@@ -74,6 +74,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
     dbContext.Database.EnsureCreated();
+    dbContext.Database.Migrate();
 }
 
 // Use CORS policy
