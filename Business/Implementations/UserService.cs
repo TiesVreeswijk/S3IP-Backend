@@ -11,7 +11,7 @@ namespace Business;
 public partial class UserService() : IUserService
 {
     [GeneratedRegex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")]
-    private static partial Regex EmailRegex();
+    private static partial Regex UsernameRegex();
     [GeneratedRegex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$")]
     private static partial Regex PasswordRegex();
     
@@ -31,11 +31,6 @@ public partial class UserService() : IUserService
 
     public User RegisterUser(RegisterReq registerReq)
     {
-        if (EmailRegex().IsMatch(registerReq.Email) == false) 
-            throw new RegistrationException("Invalid email format");
-        if (PasswordRegex().IsMatch(registerReq.Password) == false) 
-            throw new RegistrationException("Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number");
-        
         var newUser = UserMapper.RegisterDtoToUser(registerReq);
         
         newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);

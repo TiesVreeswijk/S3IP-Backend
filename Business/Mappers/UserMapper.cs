@@ -11,7 +11,7 @@ public static class UserMapper
         return new User
         {
 
-            Username = registerReq.Email,
+            Username = registerReq.Username,
             Password = registerReq.Password,
             
         };

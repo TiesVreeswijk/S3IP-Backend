@@ -16,16 +16,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        builder =>
+        policy =>
         {
-            builder.WithOrigins("http://localhost:5173")
+            policy.WithOrigins("http://localhost:5173")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
 });
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Secret"]);
+var secretKey = Encoding.UTF8.GetBytes("this_is_a_secret_key_that_is_long_enough");
 
 // Add Authentication services
 builder.Services.AddAuthentication(options =>
@@ -37,14 +37,14 @@ builder.Services.AddAuthentication(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            NameClaimType = "userId", // Ensure this matches the claim type in your token
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(secretKey),
-            RoleClaimType = "typ"
+            ValidIssuer = jwtSettings["your_issuer"],
+            ValidAudience = jwtSettings["your_audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(secretKey)
         };
     });
 

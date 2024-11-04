@@ -15,6 +15,7 @@ namespace API
     [Route("[controller]")]
     public class AuthController(IUserService userService, ITokenService tokenService) : ControllerBase
     {
+        
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginReq request)
         {
