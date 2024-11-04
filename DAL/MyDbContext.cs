@@ -12,15 +12,12 @@ public class MyDbContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        
         // Define your model configurations
         modelBuilder.Entity<User>()
             .HasIndex(a => a.Username).IsUnique();
         modelBuilder.Entity<Exercise>()
             .HasIndex(e => e.Name).IsUnique();
-        modelBuilder.Entity<Training>()
-            .HasMany(t => t.TrainingExercises)
-            .WithOne(te => te.Training)
-            .HasForeignKey(te => te.TrainingId);
 
         modelBuilder.Entity<Training>()
             .HasMany(t => t.TrainingSessions)
@@ -41,12 +38,13 @@ public class MyDbContext : DbContext
             .HasOne(tse => tse.Exercise)
             .WithMany()
             .HasForeignKey(tse => tse.ExerciseId);
-
+        modelBuilder.Entity<Training>().ToTable("training");
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Training>().HasKey(t => t.TrainingId);
     }
     public DbSet<User> Users { get; set; }
     public DbSet<Exercise> Exercise { get; set; }
-    public DbSet<Training> Training { get; set; }
+    public DbSet<Training> training { get; set; }
     public DbSet<TrainingExercise> TrainingExercise { get; set; }
     public DbSet<TrainingSession> TrainingSession { get; set; }
     public DbSet<TrainingSessionExercise> TrainingSessionExercise { get; set; }

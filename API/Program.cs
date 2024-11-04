@@ -16,9 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        policy =>
+        builder =>
         {
-            policy.WithOrigins("http://localhost:5173")
+            builder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -37,13 +37,13 @@ builder.Services.AddAuthentication(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            NameClaimType = "userId", // Ensure this matches the claim type in your token
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["your_issuer"],
-            ValidAudience = jwtSettings["your_audience"],
+            ValidIssuer = "your_issuer",
+            ValidAudience = "your_audience",
             IssuerSigningKey = new SymmetricSecurityKey(secretKey)
         };
     });
@@ -52,6 +52,8 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
+builder.Services.AddScoped<ITrainingService, TrainingService>();
 
 // Add Swagger services
 builder.Services.AddSwaggerGen(c =>

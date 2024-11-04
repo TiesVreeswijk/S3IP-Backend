@@ -25,11 +25,11 @@ public class TokenService : ITokenService
         }
         
         var jwtSettings = _configuration.GetSection("JwtSettings");
-        var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Secret"] ?? string.Empty);
+        var secretKey = Encoding.UTF8.GetBytes("this_is_a_secret_key_that_is_long_enough");
 
         var claims = new List<Claim>
         {
-            new Claim("userId", user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
             
@@ -41,8 +41,8 @@ public class TokenService : ITokenService
         );
 
         var tokenOptions = new JwtSecurityToken(
-            issuer: jwtSettings["Issuer"],
-            audience: jwtSettings["Audience"],
+            issuer: "your_issuer",
+            audience: "your_audience",
             claims: claims,
             expires: DateTime.UtcNow.AddDays(30),
             signingCredentials: signingCredentials

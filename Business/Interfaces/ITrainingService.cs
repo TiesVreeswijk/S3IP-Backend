@@ -1,6 +1,9 @@
-namespace Business.Interfaces;
+using Business.Dtos.RequestDtos;
 
-public interface ITrainingService
+namespace Business.Interfaces
 {
-    public void CreateTraining();
+    public interface ITrainingService
+    {
+        void CreateTraining(TrainingReq trainingReq);
+    }
 }

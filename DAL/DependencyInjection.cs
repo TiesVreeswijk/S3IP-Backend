@@ -13,6 +13,8 @@ public static class DependencyInjection
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ITrainingRepository, TrainingRepository>();
+        
         
 
         return services;
