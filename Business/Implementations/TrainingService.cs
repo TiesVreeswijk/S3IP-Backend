@@ -26,5 +26,12 @@ namespace Business
             List<Training> trainings = _trainingRepository.GetTrainingsByUserId(userId);
             return trainings;
         }
+        
+        public void AddExercise(TrainingExerciseReq trainingExerciseReq)
+        {
+            
+            var newTrainingExercise = TrainingExerciseMapper.TrainingExerciseReqToTrainingExercise(trainingExerciseReq);
+            _trainingRepository.AddTrainingExercise(newTrainingExercise);
+        }
     }
 }

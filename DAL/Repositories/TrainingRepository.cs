@@ -22,5 +22,11 @@ namespace DAL
         {
             return _context.training.Where(t => t.UserId == userId).ToList();
         }
+        
+        public void AddTrainingExercise(TrainingExercise trainingExercise)
+        {
+            _context.TrainingExercise.Add(trainingExercise);
+            _context.SaveChanges();
+        }
     }
 }

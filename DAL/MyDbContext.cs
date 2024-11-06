@@ -30,6 +30,12 @@ public class MyDbContext : DbContext
             .HasForeignKey(tse => tse.TrainingSessionId);
 
         modelBuilder.Entity<TrainingExercise>()
+            .HasOne(te => te.Training)
+            .WithMany(t => t.TrainingExercises)
+            .HasForeignKey(te => te.TrainingId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<TrainingExercise>()
             .HasOne(te => te.Exercise)
             .WithMany()
             .HasForeignKey(te => te.ExerciseId);

@@ -49,5 +49,19 @@ namespace API.Controllers
             catch (RegistrationException e) { return BadRequest(e.Message); }
             catch (Exception e) { return StatusCode(500, e.Message); }
         }
+        
+        [Authorize]
+        [HttpPost("addExercise")]
+        public IActionResult AddExercise([FromBody] TrainingExerciseReq request)
+        {
+            
+            try
+            {
+                _trainingService.AddExercise(request);
+                return Ok();
+            }
+            catch (RegistrationException e) { return BadRequest(e.Message); }
+            catch (Exception e) { return StatusCode(500, e.Message); }
+        }
     }
 }

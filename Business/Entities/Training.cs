@@ -8,4 +8,5 @@ public class Training
 
     
     public ICollection<TrainingSession> TrainingSessions { get; set; }
+    public IEnumerable<TrainingExercise>? TrainingExercises { get; set; }
 }

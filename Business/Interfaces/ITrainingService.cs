@@ -7,5 +7,7 @@ namespace Business.Interfaces
     {
         void CreateTraining(TrainingReq trainingReq);
         List<Training> GetTrainingsByUserId(int userId);
+        
+        void AddExercise(TrainingExerciseReq trainingExerciseReq);
     }
 }
