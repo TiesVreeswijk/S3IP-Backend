@@ -5,5 +5,6 @@ namespace DAL
     public interface ITrainingRepository
     {
         void CreateTraining(Training training);
+        List<Training> GetTrainingsByUserId(int userId);
     }
 }

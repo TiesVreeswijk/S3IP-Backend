@@ -25,26 +25,13 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpPost("protected")]
-        public async Task<IActionResult> Protected()
+        [HttpGet]
+        public List<Training> GetTrainingsByUserId()
         {
-            var training = new Training
-            {
-                Name = "Protected Training"
-            };
-            try
-            {
-                _context.training.Add(training);
-                await _context.SaveChangesAsync();
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error creating training: " + ex.Message);
-                Console.WriteLine("Stack Trace: " + ex.StackTrace);
-                return StatusCode(500, "An error occurred while saving the training. Please try again later.");
-            }
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            
+            List<Training> trainings = _trainingService.GetTrainingsByUserId(userId);
+            return trainings;
         }
 
         [Authorize]

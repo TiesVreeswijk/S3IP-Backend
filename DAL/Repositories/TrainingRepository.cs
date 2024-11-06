@@ -17,5 +17,10 @@ namespace DAL
             _context.training.Add(training);
             _context.SaveChanges();
         }
+        
+        public List<Training> GetTrainingsByUserId(int userId)
+        {
+            return _context.training.Where(t => t.UserId == userId).ToList();
+        }
     }
 }

@@ -20,5 +20,11 @@ namespace Business
             var newTraining = TrainingMapper.TrainingDtoToTraining(trainingReq);
             _trainingRepository.CreateTraining(newTraining);
         }
+        
+        public List<Training> GetTrainingsByUserId(int userId)
+        {
+            List<Training> trainings = _trainingRepository.GetTrainingsByUserId(userId);
+            return trainings;
+        }
     }
 }
