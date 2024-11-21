@@ -40,7 +40,8 @@ namespace DAL
                 {
                     Name = te.Exercise.Name,
                     Sets = te.Sets,
-                    Reps = te.Reps
+                    Reps = te.Reps,
+                    ImageUrl = te.Exercise.ImageUrl
                 })
                 .ToList();
 
