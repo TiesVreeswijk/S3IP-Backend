@@ -1,3 +1,4 @@
+using Business.Dtos.EntityDtos;
 using Business.Dtos.RequestDtos;
 using Business.Entities;
 using Business.Interfaces;
@@ -32,6 +33,12 @@ namespace Business
             
             var newTrainingExercise = TrainingExerciseMapper.TrainingExerciseReqToTrainingExercise(trainingExerciseReq);
             _trainingRepository.AddTrainingExercise(newTrainingExercise);
+        }
+        
+        public List<TrainingExerciseDto> getTrainingExercisesById(int id)
+        {
+            List<TrainingExerciseDto> exercises = _trainingRepository.getTrainingExercisesById(id);
+            return exercises;
         }
     }
 }

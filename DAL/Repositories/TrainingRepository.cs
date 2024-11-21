@@ -1,5 +1,7 @@
+using Business.Dtos.EntityDtos;
 using Business.Entities;
 using DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
@@ -27,6 +29,22 @@ namespace DAL
         {
             _context.TrainingExercise.Add(trainingExercise);
             _context.SaveChanges();
+        }
+        
+        public List<TrainingExerciseDto> getTrainingExercisesById(int id)
+        {
+            var exercises = _context.TrainingExercise
+                .Where(te => te.TrainingId == id)
+                .Include(te => te.Exercise)
+                .Select(te => new TrainingExerciseDto
+                {
+                    Name = te.Exercise.Name,
+                    Sets = te.Sets,
+                    Reps = te.Reps
+                })
+                .ToList();
+
+            return exercises;
         }
     }
 }

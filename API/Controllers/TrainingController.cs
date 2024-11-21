@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Business;
+using Business.Dtos.EntityDtos;
 using Business.Dtos.RequestDtos;
 using Business.Exceptions;
 using Business.Interfaces;
@@ -59,6 +60,19 @@ namespace API.Controllers
             {
                 _trainingService.AddExercise(request);
                 return Ok();
+            }
+            catch (RegistrationException e) { return BadRequest(e.Message); }
+            catch (Exception e) { return StatusCode(500, e.Message); }
+        }
+        
+        
+        [HttpGet("getTrainingById")]
+        public IActionResult GetTrainingById([FromQuery] int id)
+        {
+            try
+            {
+                List<TrainingExerciseDto> exercises = _trainingService.getTrainingExercisesById(id);
+                return Ok(exercises);
             }
             catch (RegistrationException e) { return BadRequest(e.Message); }
             catch (Exception e) { return StatusCode(500, e.Message); }

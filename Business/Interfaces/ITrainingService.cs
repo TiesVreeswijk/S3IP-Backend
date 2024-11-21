@@ -1,3 +1,4 @@
+using Business.Dtos.EntityDtos;
 using Business.Dtos.RequestDtos;
 using Business.Entities;
 
@@ -9,5 +10,6 @@ namespace Business.Interfaces
         List<Training> GetTrainingsByUserId(int userId);
         
         void AddExercise(TrainingExerciseReq trainingExerciseReq);
+        List<TrainingExerciseDto> getTrainingExercisesById(int id);
     }
 }
