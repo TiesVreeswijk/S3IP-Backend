@@ -24,5 +24,5 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t ***API/csharp-backend:latest -f API/Dockerfile .
-        docker push ***API/csharp-backend:latest
+        docker build -t API/csharp-backend:latest -f API/Dockerfile .
+        docker push API/csharp-backend:latest
