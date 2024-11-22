@@ -20,7 +20,7 @@ namespace API
         public IActionResult Login([FromBody] LoginReq request)
         {
             try {
-                var token = userService.LoginUserReturnToken(request); 
+                var token = userService.LoginUserReturnToken(request); //test
                 return Ok(new { token });
             }
             catch (ResourceNotFoundException e) { return BadRequest(e.Message); }
