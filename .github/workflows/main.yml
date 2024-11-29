@@ -24,3 +24,21 @@ jobs:
 
     - name: Build and Push Docker Image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/liftmate:latest
+
+  deploy:
+    needs: build  # Ensures the deployment runs after the build job
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code (optional for deployment)
+      uses: actions/checkout@v3
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: Liftmate  # Replace with your Azure Web App name
+        slot-name: production               # Use production or staging, as needed
+        images: ${{ secrets.DOCKER_USERNAME }}/liftmate:latest
+        registry-url: https://index.docker.io/v1/  # Docker Hub URL
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
