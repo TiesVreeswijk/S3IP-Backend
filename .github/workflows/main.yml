@@ -31,6 +31,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      
+    - name: Log in to Azure with Service Principal
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
@@ -38,4 +43,4 @@ jobs:
         app-name: LiftmateApi
         slot-name: production
         images: "tiesvreeswijk/LiftmateApi:latest"
-        azure-rm-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        
