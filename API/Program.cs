@@ -72,6 +72,14 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80); // Listen on port 80
+});
+
+builder.WebHost.UseUrls("http://*:80");
+
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();

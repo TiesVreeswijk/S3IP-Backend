@@ -1,25 +1,29 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
+﻿# Stage 1: Build the application
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["API/API.csproj", "API/"]
-COPY ["DAL/DAL.csproj", "DAL/"]
-COPY ["Business/Business.csproj", "Business/"]
-RUN dotnet restore "API/API.csproj"
-COPY . .
-WORKDIR "/src/API"
-RUN dotnet build "API.csproj" -c $BUILD_CONFIGURATION -o /app/build
-
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+# Copy the project files
+COPY *.sln .
+COPY API/*.csproj ./API/
+
+# Restore dependencies
+RUN dotnet restore API/*.csproj
+
+# Copy the rest of the source code
+COPY . .
+
+# Build the application
+RUN dotnet publish API/*.csproj -c Release -o /app/publish
+
+# Stage 2: Create runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+
+# Copy the published app from the build stage
+COPY --from=build /app/publish .
+
+# Expose the port your application listens on
+EXPOSE 80
+
+# Specify the command to run the application
 ENTRYPOINT ["dotnet", "API.dll"]
