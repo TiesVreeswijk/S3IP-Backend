@@ -16,13 +16,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add CORS policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
 });
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -83,6 +82,10 @@ builder.Logging.AddConsole();
 
 var app = builder.Build();
 
+var mydbContext = app.Services.GetRequiredService<MyDbContext>();
+var canConnect = mydbContext.Database.CanConnect();
+Console.WriteLine($"Database connectivity: {canConnect}");
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
@@ -107,7 +110,7 @@ app.Use(async (context, next) =>
 });
 
 // Use CORS policy
-app.UseCors("AllowSpecificOrigin");
+app.UseCors();
 app.UseStaticFiles();
 
 // Use Swagger middleware
