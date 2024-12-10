@@ -1,29 +1,35 @@
-﻿# Stage 1: Build the application
+﻿# Stage 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
-# Copy the project files
-COPY *.sln .
-COPY API/*.csproj ./API/
+# Copy the solution and project files
+COPY S3IP-Backend.sln ./
+COPY API/API.csproj ./API/
+COPY Business/Business.csproj ./Business/
+COPY DAL/DAL.csproj ./DAL/
 
 # Restore dependencies
-RUN dotnet restore API/*.csproj
+RUN dotnet restore
 
-# Copy the rest of the source code
-COPY . .
+# Copy all source code
+COPY . ./
 
-# Build the application
-RUN dotnet publish API/*.csproj -c Release -o /app/publish
+# Build the API project
+WORKDIR /src/API
+RUN dotnet publish -c Release -o /app
 
-# Stage 2: Create runtime image
+# Stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
-# Copy the published app from the build stage
-COPY --from=build /app/publish .
+# Copy the built application
+COPY --from=build /app ./
 
-# Expose the port your application listens on
+# Set ASP.NET Core to listen on port 80
+ENV ASPNETCORE_URLS=http://+:80
+
+# Expose port 80 for Azure
 EXPOSE 80
 
-# Specify the command to run the application
+# Set the entry point for the application
 ENTRYPOINT ["dotnet", "API.dll"]
