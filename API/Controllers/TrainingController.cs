@@ -35,7 +35,7 @@ namespace API.Controllers
             return trainings;
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("create")]
         public IActionResult Create([FromBody] TrainingReq request)
         {
