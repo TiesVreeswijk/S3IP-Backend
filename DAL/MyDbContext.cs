@@ -77,11 +77,11 @@ public class MyDbContext : DbContext
 
         // Map entities to tables
         modelBuilder.Entity<User>().ToTable("users");
-        modelBuilder.Entity<Exercise>().ToTable("exercises");
+        modelBuilder.Entity<Exercise>().ToTable("exercise");
         modelBuilder.Entity<Training>().ToTable("training");
-        modelBuilder.Entity<TrainingSession>().ToTable("training_sessions");
-        modelBuilder.Entity<TrainingExercise>().ToTable("training_exercises");
-        modelBuilder.Entity<TrainingSessionExercise>().ToTable("training_session_exercises");
+        modelBuilder.Entity<TrainingSession>().ToTable("trainingsessions");
+        modelBuilder.Entity<TrainingExercise>().ToTable("trainingexercises");
+        modelBuilder.Entity<TrainingSessionExercise>().ToTable("trainingsessionexercises");
     }
 
     // DbSets for entities
