@@ -79,9 +79,9 @@ public class MyDbContext : DbContext
         modelBuilder.Entity<User>().ToTable("users");
         modelBuilder.Entity<Exercise>().ToTable("exercise");
         modelBuilder.Entity<Training>().ToTable("training");
-        modelBuilder.Entity<TrainingSession>().ToTable("trainingsessions");
-        modelBuilder.Entity<TrainingExercise>().ToTable("trainingexercises");
-        modelBuilder.Entity<TrainingSessionExercise>().ToTable("trainingsessionexercises");
+        modelBuilder.Entity<TrainingSession>().ToTable("trainingsession");
+        modelBuilder.Entity<TrainingExercise>().ToTable("trainingexercise");
+        modelBuilder.Entity<TrainingSessionExercise>().ToTable("trainingsessionexercise");
     }
 
     // DbSets for entities
