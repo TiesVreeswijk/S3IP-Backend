@@ -6,6 +6,7 @@ using Business.Repositories;
 using DAL;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -15,13 +16,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add CORS policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
 });
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -70,15 +70,21 @@ builder.Services.AddDbContext<MyDbContext>(options =>
 
 builder.Services.AddControllers();
 
-var app = builder.Build();
-
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(80); // Listen on port 80
+    options.ListenAnyIP(5000);
+    options.ListenAnyIP(5001);
+    options.ListenAnyIP(80);
 });
 
-builder.WebHost.UseUrls("http://*:80");
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
+var app = builder.Build();
+
+var mydbContext = app.Services.GetRequiredService<MyDbContext>();
+var canConnect = mydbContext.Database.CanConnect();
+Console.WriteLine($"Database connectivity: {canConnect}");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -87,8 +93,24 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 }
 
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var error = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+        Console.WriteLine($"Unhandled exception: {error?.Message}");
+        await context.Response.WriteAsync("Internal Server Error");
+    });
+});
+
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"Request: {context.Request.Method} {context.Request.Path}");
+    await next();
+});
+
 // Use CORS policy
-app.UseCors("AllowSpecificOrigin");
+app.UseCors();
 app.UseStaticFiles();
 
 // Use Swagger middleware
