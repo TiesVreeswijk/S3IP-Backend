@@ -11,5 +11,7 @@ namespace Business.Interfaces
         
         void AddExercise(TrainingExerciseReq trainingExerciseReq);
         List<TrainingExerciseDto> getTrainingExercisesById(int id);
+        
+        void CreateTrainingSession(TrainingSessionReq trainingSessionReq);
     }
 }

@@ -40,5 +40,11 @@ namespace Business
             List<TrainingExerciseDto> exercises = _trainingRepository.getTrainingExercisesById(id);
             return exercises;
         }
+        
+        public void CreateTrainingSession(TrainingSessionReq trainingSessionReq)
+        {
+            var newTrainingSession = TrainingSessionMapper.TrainingSessionReqToTrainingSession(trainingSessionReq);
+            _trainingRepository.CreateTrainingSession(newTrainingSession);
+        }
     }
 }

@@ -47,5 +47,11 @@ namespace DAL
 
             return exercises;
         }
+
+        public void CreateTrainingSession(TrainingSession trainingSession)
+        {
+            _context.TrainingSession.Add(trainingSession);
+            _context.SaveChanges();
+        }
     }
 }
