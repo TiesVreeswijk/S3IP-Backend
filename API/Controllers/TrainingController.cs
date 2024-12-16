@@ -35,7 +35,7 @@ namespace API.Controllers
             return trainings;
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("create")]
         public IActionResult Create([FromBody] TrainingReq request)
         {
@@ -73,6 +73,20 @@ namespace API.Controllers
             {
                 List<TrainingExerciseDto> exercises = _trainingService.getTrainingExercisesById(id);
                 return Ok(exercises);
+            }
+            catch (RegistrationException e) { return BadRequest(e.Message); }
+            catch (Exception e) { return StatusCode(500, e.Message); }
+        }
+        
+        [Authorize]
+        [HttpPost("createTrainingSession")]
+        public IActionResult CreateTrainingSession([FromBody] TrainingSessionReq request)
+        {
+            
+            try
+            {
+                _trainingService.CreateTrainingSession(request);
+                return Ok();
             }
             catch (RegistrationException e) { return BadRequest(e.Message); }
             catch (Exception e) { return StatusCode(500, e.Message); }
