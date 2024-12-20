@@ -77,5 +77,19 @@ namespace API.Controllers
             catch (RegistrationException e) { return BadRequest(e.Message); }
             catch (Exception e) { return StatusCode(500, e.Message); }
         }
+        
+        [Authorize]
+        [HttpPost("createTrainingSession")]
+        public IActionResult CreateTrainingSession([FromBody] TrainingSessionReq request)
+        {
+            
+            try
+            {
+                _trainingService.CreateTrainingSession(request);
+                return Ok();
+            }
+            catch (RegistrationException e) { return BadRequest(e.Message); }
+            catch (Exception e) { return StatusCode(500, e.Message); }
+        }
     }
 }

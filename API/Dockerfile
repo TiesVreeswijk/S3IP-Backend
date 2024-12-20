@@ -1,25 +1,35 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
+﻿# Stage 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["API/API.csproj", "API/"]
-COPY ["DAL/DAL.csproj", "DAL/"]
-COPY ["Business/Business.csproj", "Business/"]
-RUN dotnet restore "API/API.csproj"
-COPY . .
-WORKDIR "/src/API"
-RUN dotnet build "API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+# Copy the solution and project files
+COPY S3IP-Backend.sln ./
+COPY API/API.csproj ./API/
+COPY Business/Business.csproj ./Business/
+COPY DAL/DAL.csproj ./DAL/
 
-FROM base AS final
+# Restore dependencies
+RUN dotnet restore
+
+# Copy all source code
+COPY . ./
+
+# Build the API project
+WORKDIR /src/API
+RUN dotnet publish -c Release -o /app
+
+# Stage 2: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+# Copy the built application
+COPY --from=build /app ./
+
+# Set ASP.NET Core to listen on port 80
+ENV ASPNETCORE_URLS=http://+:80
+
+# Expose port 80 for Azure
+EXPOSE 80
+
+# Set the entry point for the application
 ENTRYPOINT ["dotnet", "API.dll"]

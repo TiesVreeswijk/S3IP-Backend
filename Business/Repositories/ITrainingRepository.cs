@@ -9,5 +9,6 @@ namespace DAL
         List<Training> GetTrainingsByUserId(int userId);
         void AddTrainingExercise(TrainingExercise trainingExercise);
         List<TrainingExerciseDto> getTrainingExercisesById(int id);
+        void CreateTrainingSession(TrainingSession trainingSession);
     }
 }

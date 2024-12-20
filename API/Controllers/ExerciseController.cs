@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API
 { 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
 
 public class ExercisesController : ControllerBase
 {
@@ -17,13 +17,12 @@ public class ExercisesController : ControllerBase
         _context = context;
     }
 
-    // GET: api/exercises
+    
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Exercise>>> GetExercises()
     {
         var exercises = await _context.Exercise.ToListAsync();
-
-        // Optionally, map to DTOs if you want to send less data to the client
+        
         return Ok(exercises);
     }
 }
