@@ -94,12 +94,12 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost("saveExercise")]
-        public IActionResult SaveExercise([FromBody] TrainingExerciseReq request)
+        public IActionResult SaveExercise([FromBody] TrainingSessionExerciseReq request)
         {
 
             try
             {
-                _trainingService.AddExercise(request);
+                _trainingService.AddSessionExerciseToSession(request);
                 return Ok();
             }
             catch (RegistrationException e)
