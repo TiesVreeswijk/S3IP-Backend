@@ -10,5 +10,6 @@ namespace DAL
         void AddTrainingExercise(TrainingExercise trainingExercise);
         List<TrainingExerciseDto> getTrainingExercisesById(int id);
         void CreateTrainingSession(TrainingSession trainingSession);
+        void AddTrainingSessionExercise(TrainingSessionExercise trainingSessionExercise);
     }
 }

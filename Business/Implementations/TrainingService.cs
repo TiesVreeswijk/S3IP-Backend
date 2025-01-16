@@ -46,5 +46,11 @@ namespace Business
             var newTrainingSession = TrainingSessionMapper.TrainingSessionReqToTrainingSession(trainingSessionReq);
             _trainingRepository.CreateTrainingSession(newTrainingSession);
         }
+        
+        public void AddSessionExerciseToSession(TrainingSessionExerciseReq trainingSessionExerciseReq)
+        {
+            var newTrainingSessionExercise = TrainingSessionExerciseMapper.TrainingSessionExerciseReqToTrainingSessionExercise(trainingSessionExerciseReq);
+            _trainingRepository.AddTrainingSessionExercise(newTrainingSessionExercise);
+        }
     }
 }
