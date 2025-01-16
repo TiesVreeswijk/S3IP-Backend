@@ -1,21 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "MosdxDkvganW6HcH1ILJgcyg7h5lXDHh/fFwUo0i0H35oq/mi4qm5n58lA0w0iEoYMqIZ94ogxgDUFlS7qCAyQ==",
+  "dgSpecHash": "5niXRt564v3PbOfXIrJWswoI7w8vgmej5sf+2xvF4LLmbl0P2sLtNyqgizKC+EPul77NpCTIImfuAU31lyW2nA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ties\\RiderProjects\\S3IP-Backend\\Business\\Business.csproj",
+  "projectFilePath": "C:\\Users\\tiesv\\RiderProjects\\S3IP-Backend\\Business\\Business.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Ties\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.10\\microsoft.aspnetcore.authentication.jwtbearer.8.0.10.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.bcl.timeprovider\\8.0.1\\microsoft.bcl.timeprovider.8.0.1.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.1\\microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.1.2\\microsoft.identitymodel.abstractions.8.1.2.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\8.1.2\\microsoft.identitymodel.jsonwebtokens.8.1.2.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.identitymodel.logging\\8.1.2\\microsoft.identitymodel.logging.8.1.2.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.identitymodel.protocols\\7.1.2\\microsoft.identitymodel.protocols.7.1.2.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\7.1.2\\microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.1.2\\microsoft.identitymodel.tokens.8.1.2.nupkg.sha512",
-    "C:\\Users\\Ties\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.1.2\\system.identitymodel.tokens.jwt.8.1.2.nupkg.sha512"
+    "C:\\Users\\tiesv\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.10\\microsoft.aspnetcore.authentication.jwtbearer.8.0.10.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.bcl.timeprovider\\8.0.1\\microsoft.bcl.timeprovider.8.0.1.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.1\\microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.1.2\\microsoft.identitymodel.abstractions.8.1.2.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\8.1.2\\microsoft.identitymodel.jsonwebtokens.8.1.2.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.identitymodel.logging\\8.1.2\\microsoft.identitymodel.logging.8.1.2.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.identitymodel.protocols\\7.1.2\\microsoft.identitymodel.protocols.7.1.2.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\7.1.2\\microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.1.2\\microsoft.identitymodel.tokens.8.1.2.nupkg.sha512",
+    "C:\\Users\\tiesv\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.1.2\\system.identitymodel.tokens.jwt.8.1.2.nupkg.sha512"
   ],
   "logs": []
 }
