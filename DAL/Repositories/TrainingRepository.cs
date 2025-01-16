@@ -53,5 +53,11 @@ namespace DAL
             _context.TrainingSession.Add(trainingSession);
             _context.SaveChanges();
         }
+
+        public void AddTrainingSessionExercise(TrainingSessionExercise trainingSessionExercise)
+        {
+            _context.TrainingSessionExercise.Add(trainingSessionExercise);
+            _context.SaveChanges();
+        }
     }
 }
