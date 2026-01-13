@@ -25,7 +25,25 @@ builder.Services.AddCors(options =>
 });
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = Encoding.UTF8.GetBytes("this_is_a_secret_key_that_is_long_enough");
+var jwtSecret = jwtSettings["Secret"];
+if (string.IsNullOrWhiteSpace(jwtSecret))
+{
+    throw new InvalidOperationException("JwtSettings:Secret is not configured.");
+}
+
+var jwtIssuer = jwtSettings["Issuer"];
+if (string.IsNullOrWhiteSpace(jwtIssuer))
+{
+    throw new InvalidOperationException("JwtSettings:Issuer is not configured.");
+}
+
+var jwtAudience = jwtSettings["Audience"];
+if (string.IsNullOrWhiteSpace(jwtAudience))
+{
+    throw new InvalidOperationException("JwtSettings:Audience is not configured.");
+}
+
+var secretKey = Encoding.UTF8.GetBytes(jwtSecret);
 
 // Add Authentication services
 builder.Services.AddAuthentication(options =>
@@ -42,8 +60,8 @@ builder.Services.AddAuthentication(options =>
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "your_issuer",
-            ValidAudience = "your_audience",
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
             IssuerSigningKey = new SymmetricSecurityKey(secretKey)
         };
     });
@@ -62,7 +80,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Add DbContext
-string defaultconnection = builder.Configuration.GetConnectionString("DefaultConnection");
+string defaultconnection = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("ConnectionStrings:DefaultConnection is not configured.");
 builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseMySql(defaultconnection,
         ServerVersion.AutoDetect(defaultconnection),

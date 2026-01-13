@@ -1,10 +1,7 @@
-using System.IdentityModel.Tokens.Jwt;
 using Business.Entities;
-using DAL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Business;
 using Business.Dtos.EntityDtos;
 using Business.Dtos.RequestDtos;
 using Business.Exceptions;
@@ -16,12 +13,10 @@ namespace API.Controllers
     [Route("[controller]")]
     public class TrainingController : ControllerBase
     {
-        private readonly MyDbContext _context;
         private readonly ITrainingService _trainingService;
 
-        public TrainingController(MyDbContext context, ITrainingService trainingService)
+        public TrainingController(ITrainingService trainingService)
         {
-            _context = context;
             _trainingService = trainingService;
         }
 
